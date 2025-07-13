@@ -1,0 +1,17 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/recicleville
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Configuração para criação automática do banco de dados e tabelas
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.show-sql=true
+
+# Inicialização do banco de dados
+spring.sql.init.mode=always
+spring.jpa.defer-datasource-initialization=true
+
+# Configurações de logging
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
