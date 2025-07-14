@@ -3,6 +3,7 @@ package br.org.sesisenai.DoaVille.controller;
 import br.org.sesisenai.DoaVille.dto.ItemDoacaoDTO;
 import br.org.sesisenai.DoaVille.entity.ItemDoacao;
 import br.org.sesisenai.DoaVille.service.ItemDoacaoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +45,13 @@ public class ItemDoacaoController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (service.findById(id) != null) {
+            service.delete(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 }

@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface SolicitacaoDoacaoRepository extends JpaRepository<SolicitacaoDoacao, Long> {
     List<SolicitacaoDoacao> findByItemDoacao(ItemDoacao itemDoacao);
+
+    boolean existsByItemDoacaoId(Long itemId);
 }

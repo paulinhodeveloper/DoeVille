@@ -3,13 +3,18 @@ package br.org.sesisenai.DoaVille.service;
 import br.org.sesisenai.DoaVille.dto.ItemDoacaoDTO;
 import br.org.sesisenai.DoaVille.entity.ItemDoacao;
 import br.org.sesisenai.DoaVille.repository.ItemDoacaoRepository;
+import br.org.sesisenai.DoaVille.repository.SolicitacaoDoacaoRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ItemDoacaoService {
+
+    @Autowired
+    private SolicitacaoDoacaoRepository solicitacaoRepository;
 
     private final ItemDoacaoRepository repository;
 
@@ -49,6 +54,9 @@ public class ItemDoacaoService {
     }
 
     public void delete(Long id) {
+        if (solicitacaoRepository.existsByItemDoacaoId(id)) {
+            throw new RuntimeException("Este item de doação está vinculado a uma ou mais solicitações.");
+        }
         repository.deleteById(id);
     }
 }

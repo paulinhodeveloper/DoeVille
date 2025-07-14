@@ -3,6 +3,7 @@ package br.org.sesisenai.DoaVille.controller;
 import br.org.sesisenai.DoaVille.dto.SolicitacaoDoacaoDTO;
 import br.org.sesisenai.DoaVille.entity.SolicitacaoDoacao;
 import br.org.sesisenai.DoaVille.service.SolicitacaoDoacaoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,4 +42,14 @@ public class SolicitacaoDoacaoController {
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
+
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public ResponseEntity<SolicitacaoDoacao> findById(@PathVariable Long id) {
+        return service.findById(id)
+                      .map(ResponseEntity::ok)
+                      .orElse(ResponseEntity.notFound().build());
+    }
+
 }

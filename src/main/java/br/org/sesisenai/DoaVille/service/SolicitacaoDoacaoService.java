@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SolicitacaoDoacaoService {
@@ -56,5 +57,10 @@ public class SolicitacaoDoacaoService {
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+
+    public Optional<SolicitacaoDoacao> findById(Long id) {
+        return repository.findById(id);
     }
 }
